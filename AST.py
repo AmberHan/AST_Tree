@@ -10,15 +10,17 @@ result_dict = {}
 
 
 # father_node:父节点;children_list子节点;my_type:元电路对象;unitary矩阵,child=0减枝
-class EveryNode:
-    def __init__(self, father_node, type, label, typeLabel, pos, length):
-        self.father_node = father_node
-        self.type = type
-        self.label = label
-        self.typeLabel = typeLabel
-        self.pos = pos
-        self.length = length
-        self.children_list = []
+class AstNode(object):
+    def __init__(self, temp):
+        # self.father_node = father_node
+        self.type = int(temp["type"])
+        self.label = temp.get("label")
+        self.typeLabel = temp["typeLabel"]
+        self.pos = int(temp["pos"])
+        self.length = int(temp["length"])
+        # self.children = children
+        # self.id = temp["id"]
+        # self.parent = None
 
     # 添加父亲的子节点,目的为了减枝
     def add_children(self, children):
@@ -63,7 +65,16 @@ def com_circuit(plies_node, type_all):
 def init_truth():
     with open('AST.txt', 'r') as f:
         data = json.load(f)
-    print(data)
+    mm = data['root']['children']
+    print(mm)
+    for i in mm['children']:
+        print(i, '\n')
+        AstNode(i)
+        # print(i['type'])
+        # AstNode(i)
+    #     for j in i['children']:
+    #         print(j['type'])
+    # print(data['root'])
     # circuit_unitary = np.identity(2 ** n)
     # node_0 = EveryNode(None, None, 0, circuit_unitary)
     # tree_queue = queue.Queue()
