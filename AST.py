@@ -11,8 +11,8 @@ result_dict = {}
 
 # father_node:父节点;children_list子节点;my_type:元电路对象;unitary矩阵,child=0减枝
 class AstNode(object):
-    def __init__(self, temp):
-        # self.father_node = father_node
+    def __init__(self, father_node, temp):
+        self.father_node = father_node
         self.type = int(temp["type"])
         self.label = temp.get("label")
         self.typeLabel = temp["typeLabel"]
@@ -65,11 +65,13 @@ def com_circuit(plies_node, type_all):
 def init_truth():
     with open('AST.txt', 'r') as f:
         data = json.load(f)
-    mm = data['root']['children']
-    print(mm)
-    for i in mm['children']:
+    print(data)
+    re_dist = data['root']
+    NewNode = AstNode(None, re_dist)
+    print(1)
+    for i in data['root']['children'][0]['children']:
         print(i, '\n')
-        AstNode(i)
+        # AstNode(i)
         # print(i['type'])
         # AstNode(i)
     #     for j in i['children']:
